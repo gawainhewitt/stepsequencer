@@ -3,18 +3,20 @@ var url_ob = new URL(document.URL);
 
 document.getElementById("save").addEventListener("click", saveSeq);
 
-const rows = 3;
-      notes = ['G5', 'E4', 'C3'];
+const rows = 5;
+      notes = ['a3', 'g3', 'e3', 'd3', 'c3'];
 let index = 0,
-    seqLength = 8;
+    seqLength = 16;
     seqSteps = new Array ();
-seqSteps[0] = new Array (0,0,0,0,0,0,0,0);
-seqSteps[1] = new Array (0,0,0,0,0,0,0,0);
-seqSteps[2] = new Array (0,0,0,0,0,0,0,0);
+seqSteps[0] = new Array ();
+seqSteps[1] = new Array ();
+seqSteps[2] = new Array ();
+seqSteps[3] = new Array ();
+seqSteps[4] = new Array ();
 var savedWork = url_ob.hash; //retrieve saved work from url
-var savedWorkNoHash = savedWork.replace('#', ''); // remove the hash from it leaving only the hex number
-var savedSeqAsBinary = (parseInt(savedWorkNoHash, 16).toString(2)); //convert saved work to binary number
-var savedSeqAsArray = savedSeqAsBinary.split('');
+var savedWorkNoHash = savedWork.replace('#', ''); // remove the hash from it leaving only the number
+//var savedSeqAsBinary = (parseInt(savedWorkNoHash, 16).toString(2)); //convert saved work to binary number
+var savedSeqAsArray = savedWorkNoHash.split('');
 var totalSteps = rows * seqLength;
 var convertedSeqAsArray = new Array ();
 
@@ -39,17 +41,22 @@ for (let i = rows-1; i >= 0; i--) {  // put the saved number into the sequence a
 console.log(seqSteps[0]);
 console.log(seqSteps[1]);
 console.log(seqSteps[2]);
+console.log(seqSteps[3]);
+console.log(seqSteps[4]);
 
 function saveSeq() {
     let row0 = seqSteps[0].join('');
     let row1 = seqSteps[1].join('');
     let row2 = seqSteps[2].join('');
-    let seqAsBinary = `${row0}${row1}${row2}`
+    let row3 = seqSteps[3].join('');
+    let row4 = seqSteps[4].join('');
+    let seqAsBinary = `${row0}${row1}${row2}${row3}${row4}`;
     console.log(seqAsBinary);
-    let seqAsHex = parseInt(seqAsBinary, 2).toString(16)
-    console.log(seqAsHex);
-    console.log(parseInt(seqAsHex, 16).toString(2)); //convert back to long binary
-    url_ob.hash = `#${seqAsHex}`;
+    //let seqAsHex = seqAsBinary.toString(16);
+    // var seqAsHex = parseInt(seqAsBinary, 2).toString(16);
+    // console.log(seqAsHex);
+    // console.log(parseInt(seqAsHex, 16).toString(2)); //convert back to long binary
+    url_ob.hash = `#${seqAsBinary}`;
     var new_url = url_ob.href;
     document.location.href = new_url;
 }
