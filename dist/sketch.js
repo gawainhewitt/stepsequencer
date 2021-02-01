@@ -54,7 +54,7 @@ function saveSeq() {
     document.location.href = new_url;
 }
 
-document.documentElement.addEventListener('mousedown', () => {
+document.documentElement.addEventListener('mousedown', () => { // user clickj to enable audio
     if (Tone.context.state !== 'running') Tone.context.resume();
   });
 
@@ -64,14 +64,29 @@ const synths = [
     new Tone.Synth()
 ];
 
+const sampler = new Tone.Sampler({
+	urls: {
+		B2: "horn-tone-b2.mp3",
+    C3: "horn-tone-c3.mp3",
+    E3: "horn-tone-e3.mp3",
+    G3: "horn-tone-g3.mp3",
+    A3: "horn-tone-a3.mp3",
+    C4: "horn-tone-c4.mp3"
+	},
+	baseUrl: "/sounds/",
+// 	onload: () => {
+//     // hideLoadScreen();
+//   }
+}).toDestination();
+
 synths[0].oscillator.type = 'triangle';
 synths[1].oscillator.type = 'sine';
 synths[2].oscillator.type = 'sawtooth';
 
-const gain = new Tone.Gain(0.6);
-gain.toDestination();
+// const gain = new Tone.Gain(0.6);
+// gain.toDestination();
 
-synths.forEach(synth => synth.connect(gain));
+// synths.forEach(synth => synth.connect(gain));
 
 
 
@@ -82,7 +97,7 @@ function repeat(time) {
     let step = index % seqLength;
 
     for (let i = 0; i < rows; i++) {
-        let synth = synths[i],
+        let synth = sampler,
             note = notes[i],
             input = document.getElementById(`row${i}step${step}`);
         if (input.checked) {
