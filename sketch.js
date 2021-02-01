@@ -107,7 +107,7 @@ function repeat(time) {
             note = notes[i],
             input = document.getElementById(`row${i}step${step}`);
         if (input.checked) {
-            synth.triggerAttackRelease(note, '8n', time);
+            synth.triggerAttackRelease(note, '4n', time);
             seqSteps[i][step] = 1;
         } else {
             seqSteps[i][step] = 0;
