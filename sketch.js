@@ -73,12 +73,11 @@ const synths = [
 
 const sampler = new Tone.Sampler({
 	urls: {
-		B2: "horn-tone-b2.mp3",
-    C3: "horn-tone-c3.mp3",
-    E3: "horn-tone-e3.mp3",
-    G3: "horn-tone-g3.mp3",
-    A3: "horn-tone-a3.mp3",
-    C4: "horn-tone-c4.mp3"
+    C3: "bubbles.mp3",
+    D3: "clay.mp3",
+    G3: "confetti.mp3",
+    A3: "flash-1.mp3",
+    E3: "moon.mp3"
 	},
 	baseUrl: "/sounds/",
 // 	onload: () => {
@@ -116,3 +115,14 @@ function repeat(time) {
     }
     index++;
   }
+
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  Tone.Transport.bpm.value = this.value;
+}
